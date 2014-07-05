@@ -1,24 +1,27 @@
+
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head lang="en">
     <meta charset="UTF-8">
     <title>MovieApp</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
 </head>
-<body ng-controller="AppController as appCtrl">
+<body ng-controller="MovieController as movieCtrl">
 
-<div class="container">
+<div class="container main">
+
+
     <h1>Movie Search:</h1>
     <div class="form-group">
-        <input class="form-control" type="text" ng-model="searchText" ng-keyup="searchMovie()" />
+        <input class="form-control" type="text" ng-model="searchText" autofocus ng-keyup="searchMovie()" />
     </div>
 
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="movie in movies">
-            {{movie.title}}
+    <ul class="list-group movie-group" >
+        <li class="list-group-item movie-group-item" ng-repeat="movie in movies" ng-click="getImage(movie.id)">
+            {{movie.title}} <span-movie-info class="pull-right"></span-movie-info>
         </li>
     </ul>
-
 
 </div>
 
@@ -26,6 +29,11 @@
 
 
 <script src="js/angular.min.js"></script>
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script src="api-config.js"></script>
+<script src="directives/movie-directives.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
