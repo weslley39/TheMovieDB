@@ -17,11 +17,17 @@
         <input class="form-control" type="text" ng-model="searchText" autofocus ng-keyup="searchMovie()" />
     </div>
 
-    <ul class="list-group movie-group" >
-        <li class="list-group-item movie-group-item" ng-repeat="movie in movies" ng-click="getImage(movie.id)">
-            {{movie.title}} <span-movie-info class="pull-right"></span-movie-info>
+    <ul class="list-group movie-group" ng-hide="showToWatch()">
+        <li ng-class="{'movie-group-item-toWatch': isToWatch(movie.id)}" class="list-group-item movie-group-item" ng-repeat="movie in movies" ng-click="addToWatch(movie.id)">
+            {{movie.title}}  <span-movie-info class="pull-right"></span-movie-info>
         </li>
     </ul>
+
+   <ul class="list-group" ng-show="showToWatch()">
+        <li class="list-group-item movie-group-item" ng-repeat="movie in toWatch">
+            {{movie.title}}
+        </li>
+   </ul>
 
 </div>
 

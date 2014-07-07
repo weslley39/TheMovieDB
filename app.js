@@ -6,13 +6,12 @@ var app = angular.module('myApp', ['movie-directives']);
 
 app.controller('MovieController', function($http, $scope){
     $scope.movies = [];
+    $scope.toWatch = [];
 
-    // Texto padrão para facilitar os testes.
-    $scope.searchText = "Inglorious";
     $scope.searchMovie = function() {
 
         if ($scope.searchText) {
-            if(debug) console.log($scope.searchText);
+            if(debug) console.log('searchText: ' + $scope.searchText);
             var url = api + '/search/movie?'
                 + 'api_key=' + api_key
                 + '&query=' + $scope.searchText
@@ -30,6 +29,7 @@ app.controller('MovieController', function($http, $scope){
     // Chamando a busca para quando carregar a view já ter uma listagem.
     $scope.searchMovie();
 
+    // Teste com Imagens
     $scope.getImage = function(id){
         var url = api + '/movie/' + id + '/images?api_key=' + api_key;
         $http.get(url).success(function(data){
@@ -40,8 +40,27 @@ app.controller('MovieController', function($http, $scope){
         });
     }
 
-    $scope.verify = function(){
-        return $scope.searchText == 'Inglorious';
+    $scope.addToWatch = function(id){
+        var url = api + '/movie/' + id + '?api_key=' + api_key;
+        $http.get(url).success(function(data){
+           if($scope.isToWatch(id)) {
+               if(debug) console.log(data.title + ' já pertence a lista toWatch');
+               return;
+           }
+           if(debug) console.log('Adicionado ' + data.title);
+           $scope.toWatch.push(data);
+        });
+    }
+
+    $scope.isToWatch = function(id){
+        for(i = 0 ; i < $scope.toWatch.length ; i++){
+            if($scope.toWatch[i].id == id) return true;
+        }
+        return false;
+    }
+
+    $scope.showToWatch = function(){
+        return $scope.searchText == '';
     }
 });
 
