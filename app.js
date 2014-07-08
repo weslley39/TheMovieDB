@@ -12,8 +12,8 @@ app.controller('MovieController', function($http, $scope){
 
         if ($scope.searchText) {
             if(debug) console.log('searchText: ' + $scope.searchText);
-            var url = api + '/search/movie?'
-                + 'api_key=' + api_key
+            var url = window.api + '/search/movie?'
+                + 'api_key=' + window.api_key
                 + '&query=' + $scope.searchText
                 + '&search_type=ngram'; // Parametro para fazer a busca estilo "Contains"
 
@@ -31,23 +31,23 @@ app.controller('MovieController', function($http, $scope){
 
     // Teste com Imagens
     $scope.getImage = function(id){
-        var url = api + '/movie/' + id + '/images?api_key=' + api_key;
+        var url = window.api + '/movie/' + id + '/images?api_key=' + window.api_key;
         $http.get(url).success(function(data){
-           if (debug) console.log(data);
+           if (window.debug) console.log(data);
            for(var i = 0 ; i < data.backdrops.length ; i++){
-               if (debug) console.log(api_images + '/' + data.backdrops[i].file_path);
+               if (window.debug) console.log(window.api_images + '/' + data.backdrops[i].file_path);
            }
         });
     }
 
     $scope.addToWatch = function(id){
-        var url = api + '/movie/' + id + '?api_key=' + api_key;
+        var url = window.api + '/movie/' + id + '?api_key=' + window.api_key;
         $http.get(url).success(function(data){
            if($scope.isToWatch(id)) {
-               if(debug) console.log(data.title + ' já pertence a lista toWatch');
+               if(window.debug) console.log(data.title + ' já pertence a lista toWatch');
                return;
            }
-           if(debug) console.log('Adicionado ' + data.title);
+           if(window.debug) console.log('Adicionado ' + data.title);
            $scope.toWatch.push(data);
         });
     }

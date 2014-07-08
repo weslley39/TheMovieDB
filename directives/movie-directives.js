@@ -11,7 +11,7 @@
         return {
             restrict: 'A',
             link: function(scope, el, attrs){
-                var url = api + '/movie/' + attrs.movieId + '?api_key=' + api_key;
+                var url = window.api + '/movie/' + attrs.movieId + '?api_key=' + window.api_key;
                 $http.get(url).success(function(data){
                     if(debug) console.log(data);
                     $(el).popover({
