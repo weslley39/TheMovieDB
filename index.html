@@ -9,10 +9,13 @@
 		<meta name="keywords" content="movies, good, best, share, friends, db, angular" />
 		<meta name="author" content="Weslley Neri, Lucas Munhoz, Jose Barbosa" />
 		<link rel="shortcut icon" href="../favicon.ico">
+
 		<link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
         <link rel="stylesheet" type="text/css" href="css/Frmks/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/Theme/app.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+
 		<!--[if IE]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -40,17 +43,26 @@
 				</nav>
 				<div class="content">
 					<section id="section-1">
-
+                    <div class="row text-center">
                         <h1>Movie Search:</h1>
                         <div class="form-group">
-                            <input class="form-control" type="text" ng-model="searchText" autofocus ng-keyup="searchMovie()" />
+                            <div class="col-sm-11">
+                                <input class="form-control" style="margin-left: 30px;" type="text" ng-model="searchText" autofocus ng-keyup="searchMovie()" />
+                            </div>
+                            <div class="col-sm-1 col-sm-pull-1">
+                                <a ng-click="removeSearchMovie()" class="fa fa-times" ng-show="movies.length > 0" style="margin-top: 8px; color: red"></a>
+                            </div>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <ul class="list-group movie-group" ng-hide="showToWatch()">
                             <li ng-class="{'movie-group-item-toWatch': isToWatch(movie.id)}" class="list-group-item movie-group-item" ng-repeat="movie in movies" ng-click="addToWatch(movie.id)">
                                 {{movie.title}}  <span-movie-info class="pull-right"></span-movie-info>
                             </li>
                         </ul>
+                    </div>
+
 
                         <ul class="list-group" ng-show="showToWatch()">
                             <li class="list-group-item movie-group-item" ng-repeat="movie in toWatch">
@@ -141,6 +153,7 @@
         <script src="api-config.js"></script>
         <script src="directives/movie-directives.js"></script>
         <script src="app.js"></script>
+        <script src="controllers/HomeController.js"></script>
 		<script src="js/theme/cbpFWTabs.js"></script>
 		<script>
 			new CBPFWTabs( document.getElementById( 'tabs' ) );
